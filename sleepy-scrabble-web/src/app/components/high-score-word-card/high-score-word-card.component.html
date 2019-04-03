@@ -1,0 +1,15 @@
+<h3>Most Recent Words</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Word</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let word of words">
+      <td>{{ word.word }}</td>
+      <td>{{ word.score }}</td>
+    </tr>
+  </tbody>
+</table>

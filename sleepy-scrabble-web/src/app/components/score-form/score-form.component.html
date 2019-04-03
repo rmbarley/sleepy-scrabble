@@ -1,0 +1,47 @@
+<div class="section">
+  <form [formGroup]="newWordForm" (ngSubmit)="onSubmit($event)">
+    <div class="field has-addons is-centered">
+      <label class="label is-sr-only" for="score">Score a word</label>
+      <div class="control is-halfwidth">
+        <input
+          class="input is-medium"
+          id="score"
+          type="text"
+          [ngClass]="isFormValid() ? 'is-danger' : ''"
+          formControlName="word"
+          placeholder="Submit a word to score..."
+        />
+      </div>
+      <p class="control">
+        <span class="select is-medium" [ngClass]="isFormValid() ? 'is-danger' : ''">
+          <select formControlName="scoreMultiplier">
+            <option *ngFor="let multiplier of multipliers" [value]="multiplier.value">
+              {{ multiplier.text }}
+            </option>
+          </select>
+        </span>
+      </p>
+    </div>
+    <div *ngIf="isFormValid()" class="has-text-centered">
+      <p class="help is-danger" *ngIf="newWordForm.controls['word'].errors.required">
+        Field can not be blank.
+      </p>
+      <p class="help is-danger" *ngIf="newWordForm.controls['word'].errors.pattern">
+        Field may only contain letters.
+      </p>
+      <p class="help is-danger" *ngIf="newWordForm.controls['word'].errors.wordNotValid">
+        Not a valid Scrabble word.
+      </p>
+    </div>
+    <div class="field is-halfwidth is-centered">
+      <div class="control">
+        <button class="button is-medium is-info" [disabled]="!newWordForm.valid">Get Score</button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="wordToShow" class="is-centered">
+    <h5>
+      <strong>{{ wordToShow.word | uppercase }}</strong> is worth {{ wordToShow.score }} points.
+    </h5>
+  </div>
+</div>
